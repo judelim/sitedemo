@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Stardusts</title>
+    <style>
+      /* 버블 스타일 */
+      .bubble {
+        position: absolute;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: white;
+        /* 애니메이션 설정 */
+        animation-name: move-bubble;
+        animation-duration: 10s;
+        animation-iteration-count: infinite;
+        animation-timing-function: ease-in-out;
+        /* 랜덤한 딜레이 설정 */
+        animation-delay: calc(var(--delay) * 1s);
+      }
+
+      /* 애니메이션 설정 */
+      @keyframes move-bubble {
+        0% {
+          /* 처음 위치 (랜덤) */
+          transform: translate(var(--start-x), var(--start-y));
+        }
+        100% {
+          /* 전체 화면을 돌아다닌 후 처음 위치로 되돌아감 */
+          transform: translate(
+            calc(var(--start-x) + 100vw),
+            calc(var(--start-y) + 100vh)
+          );
+        }
+      }
+      .bubble {
+        position: absolute;
+        width: 6px;
+        height: 6px;
+        background-color: white;
+        border-radius: 50%;
+        /* 애니메이션 설정 */
+        animation-name: move-bubble;
+        animation-duration: 5s;
+        animation-iteration-count: infinite;
+        animation-timing-function: ease-in-out;
+        /* 랜덤한 딜레이 설정 */
+        animation-delay: calc(var(--delay) * 1s);
+        box-shadow: 0 0 10px white;
+      }
+
+      .bubble::after {
+        content: "";
+        position: absolute;
+        width: 1px;
+        height: 10px;
+        background-color: white;
+        border-radius: 5px;
+        /* transform: rotate(225deg); */
+        bottom: -3px;
+        left: 50%;
+        transform-origin: center bottom;
+      }
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: black;
+      }
+      body {
+        display: flex;
+        flex-direction: column;
+        background-color: #000;
+        font-family: Arial, sans-serif;
+      }
+      button {
+        border: 1px solid black;
+        margin-left: 1030px;
+        /* margin-top: 30px; */
+        width: 100px;
+        text-decoration-line: dotted;
+        border-radius: 30%;
+        color: white;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(196, 187, 141, 0.863),
+          0 0 20px rgba(196, 187, 141, 0.863),
+          0 0 30px rgba(196, 187, 141, 0.863),
+          0 0 40px rgba(196, 187, 141, 0.863);
+      }
+      
+
+      .container {
+        max-width: 800px;
+        margin: 50px auto;
+        background-color: #ffffff;
+        border: 1px solid #ccc;
+        padding: 10px;
+        box-shadow: 0 0 20px rgba(196, 187, 141, 0.863),
+          0 0 40px rgba(196, 187, 141, 0.863),
+          0 0 60px rgba(196, 187, 141, 0.863),
+          0 0 80px rgba(196, 187, 141, 0.863);
+        text-align: justify;
+        margin-top: 100px;
+      }
+
+      .container img {
+        max-width: 100%;
+        margin-bottom: 20px;
+      }
+      
+      a {
+        text-decoration: none;
+        color: black;
+      }
+      img{
+        width: 50%;
+        height: 50%;
+        margin-left: 200px;
+        padding-bottom: 50px;
+      }
+      h1 {
+        text-align: center;
+        padding: 0px;
+        margin: 10px;
+      }
+      h2{
+        padding: 0px;
+        margin: 10px;
+      }
+      h3{
+        text-align: center;
+      }
+      h4{
+        margin: 0px;
+        text-align: center;
+      }
+      ul{
+        text-align: left;
+        padding-left: 100px;
+      }
+      hr{
+        width: 500px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="screen"></div>
+    <div class="container">
+      <h1>빛 공해의 문제점</h1>
+      <hr>
+      <p>
+        <h3>인공조명에 의한 빛공해로 인해 예상보다 빠른 속도로 밤하늘의 별들이 사라지고 있다. </h3>
+        <h3> 
+          <ul>
+            <li>
+              사람의 건강: 수면 방해, 눈의 피로 증가, 어린이의 성장 방해
+            </li>
+            <li>
+              동식물: 생육 방해, 생태계 교란 및 파괴, 곤충 개체수 감소
+          </li>
+            <li>
+              질병: 빛 공해를 발암물질로 인정 (WHO)
+            </li>
+          </ul>
+        </h3>
+        <img src="https://cdn.kidshankook.kr/news/photo/202302/6211_17505_1036.jpg" alt="">
+        <h4></h4>
+      </p>
+      
+    </div>
+    <div>
+      <button><a href="page5.html">next page</a></button>
+    </div>
+
+    <script>
+      const NUM_BUBBLES = 400; // 생성할 버블 수
+      const MIN_DELAY = 0; // 버블 생성 딜레이 최소값 (초)
+      const MAX_DELAY = 10; // 버블 생성 딜레이 최대값 (초)
+
+      // 버블을 추가할 컨테이너 요소 선택
+      const screen = document.querySelector("#screen");
+
+      // 버블을 생성하는 함수
+      function createBubble() {
+        // 랜덤한 시작 위치(x, y)와 딜레이(delay) 생성
+        const startX = Math.random() * 10000 + "%";
+        const startY = Math.random() * 10000 + "%";
+        const delay = Math.random() * (MAX_DELAY - MIN_DELAY) + MIN_DELAY;
+
+        // 버블 요소 생성
+        const bubble = document.createElement("div");
+        bubble.classList.add("bubble");
+        bubble.style.setProperty("--start-x", startX);
+        bubble.style.setProperty("--start-y", startY);
+        bubble.style.setProperty("--delay", delay);
+
+        // 화면에 버블 추가
+        screen.appendChild(bubble);
+      }
+
+      // 버블 생성
+      for (let i = 0; i < NUM_BUBBLES; i++) {
+        createBubble();
+      }
+
+      const title1 = document.querySelector("#title1");
+      setInterval(() => {
+        title1.style.visibility =
+          title1.style.visibility === "hidden" ? "visible" : "hidden";
+      }, Math.floor(Math.random() * 100) + 500);
+
+      const title2 = document.querySelector("#title2");
+      setInterval(() => {
+        title2.style.visibility =
+          title2.style.visibility === "hidden" ? "visible" : "hidden";
+      }, Math.floor(Math.random() * 500) + 500);
+
+      const title3 = document.querySelector("#title3");
+      setInterval(() => {
+        title3.style.visibility =
+          title3.style.visibility === "hidden" ? "visible" : "hidden";
+      }, Math.floor(Math.random() * 300) + 500);
+
+      const title4 = document.querySelector("#title4");
+      setInterval(() => {
+        title4.style.visibility =
+          title4.style.visibility === "hidden" ? "visible" : "hidden";
+      }, Math.floor(Math.random() * 800) + 500);
+      const building = document.querySelector(".building");
+    </script>
+  </body>
+</html>
